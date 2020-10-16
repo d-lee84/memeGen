@@ -1,0 +1,33 @@
+/* Top text */
+div.caption {
+    position: absolute;
+    display: block;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px black; 
+    margin: auto;
+    width: 100%;
+    text-align: center;
+    margin: auto;
+  }
+
+  div.topText {
+    top: 12px;
+  }
+
+  /* Bottom text */
+  div.botText {
+    bottom: 90px;
+  }
+
+  /* Small devices (landscape phones, 544px and up) */
+  @media (max-width: 544px) {  
+    .caption {font-size:2.5rem;} /*1rem = 16px*/
+  }
+  
+  /* Extra large devices (large desktops, 1200px and up) */
+  @media (min-width: 545px) {  
+    .caption {font-size:3rem;} /*1rem = 16px*/    
+  }
