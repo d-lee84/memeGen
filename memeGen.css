@@ -13,6 +13,17 @@ div.caption {
   margin: auto;
 }
 
+.largeText {
+  font-size: 50px;
+}
+
+.mediumText {
+  font-size: 35px;
+}
+
+.smallText {
+  font-size: 20px;
+}
 
 /* Top text */
 div.topText {
@@ -22,14 +33,6 @@ div.topText {
 /* Bottom text */
 div.botText {
   bottom: 90px;
-}
-
-@media (max-width: 544px) {  
-  .caption {font-size:2.5rem;} /*1rem = 16px*/
-}
-
-@media (min-width: 545px) {  
-  .caption {font-size:3rem;} /*1rem = 16px*/    
 }
 
 img {

@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     var bottomText = document.querySelector('#botText');
     var topText = document.querySelector('#topText');
     var image = document.querySelector('#image');
+    var picturesDiv = document.querySelector('#pictures');
+    
 
 
     document.querySelector('form').onsubmit = () => {
@@ -10,15 +12,13 @@ document.addEventListener('DOMContentLoaded', () => {
         let tpText = topText.value;
         let img = image.value;
 
-        // Get the number of memes
-        let picturesDiv = document.getElementById('pictures');
-        let memeNum = picturesDiv.getElementsByClassName('row justify-content-center').length;
-        
+        // Get the value of the top and bottom caption sizes
+        var topCap = document.querySelector('#TopCaptionSize').value;
+        var botCap = document.querySelector('#BotCaptionSize').value;
+
         // Make the meme card
-        const memeArr = makeBigCard(img, tpText, botText, memeNum+1);
-        const meme = memeArr[0];
-
-
+        const meme = makeBigCard(img, tpText, botText, topCap, botCap);
+        
         // Add the meme to the correct field
         document.querySelector('#pictures').appendChild(meme);
         
@@ -32,47 +32,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
+    var picturesDiv = document.querySelector('#pictures');
+
+    picturesDiv.addEventListener("click", function(event){
+    if(event.target.tagName == "BUTTON"){
+        event.target.parentElement.parentElement.parentElement.remove();
+    }
+
+});
+
 });
 
 
 
-setInterval( () => {
-    
-    document.querySelectorAll(".remove").forEach(function(button, index) {
-        button.onclick = () => {
-            let picturesDiv = document.getElementById('pictures');
-            let memes = picturesDiv.getElementsByClassName('row justify-content-center');
-    
-            let deleteMeme = memes[index];
-    
-            deleteMeme.remove();
-        }
-    });
-    
-}, 500);
 
 
 
-
-
-
-function makeBigCard(link, tText, bText, memeNum){
-    const cardArr = makeCard(link, tText, bText, memeNum);
-    const smallCard = cardArr[0];
+function makeBigCard(link, tText, bText, topCap, botCap){
+    const card = makeCard(link, tText, bText, topCap, botCap);
 
     let div = document.createElement('div');
     div.className = "row justify-content-center";
-    div.appendChild(smallCard);
+    div.appendChild(card);
 
-    return [div, cardArr[1]];
+    return div;
 }
 
-function makeCard(link, tText, bText, memeNum) {
+function makeCard(link, tText, bText, topCap, botCap) {
     const picture = pictureDiv(link);
-    const topText = tTDiv(tText);
-    const botText = bTDiv(bText);
-    const buttonArr = submitBot(memeNum);
-    const button = buttonArr[0];
+    const topText = tTDiv(tText, topCap);
+    const botText = bTDiv(bText, botCap);
+    const button = submitBot();
     
 
     let div = document.createElement('div');
@@ -83,7 +73,7 @@ function makeCard(link, tText, bText, memeNum) {
     div.appendChild(botText);
     div.appendChild(button);
 
-    return [div, buttonArr[1]];
+    return div;
 }
 
 function pictureDiv(link){
@@ -98,32 +88,32 @@ function pictureDiv(link){
     return div;
 }
 
-function tTDiv(topText){
+function tTDiv(topText, topCap){
     let div = document.createElement('div');
-    div.className = "topText caption";
+    div.className = "topText caption " + topCap + "Text";
     div.innerHTML = topText;
 
     return div;
 }
 
-function bTDiv(botText){
+function bTDiv(botText, botCap){
     let div = document.createElement('div');
-    div.className = "botText caption";
+    div.className = "botText caption " + botCap + "Text";
     div.innerHTML = botText;
 
     return div;
 }
 
-function submitBot(memeNum){
+function submitBot(){
     let button = document.createElement("button");
     button.type = "Submit";
     button.className = "btn btn-outline-info remove";
-    button.id = "remove" + memeNum.toString();
+    button.id = "remove";
     button.innerHTML = "Remove the Meme :("
     
     let div = document.createElement('div');
     div.className = "card-body text-center";
     div.appendChild(button);
 
-    return [div, button];
+    return div;
 }
